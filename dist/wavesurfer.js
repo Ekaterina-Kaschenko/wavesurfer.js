@@ -4,7 +4,7 @@
     define('wavesurfer', [], function () {
       return (root['WaveSurfer'] = factory());
     });
-  } else if (typeof exports === 'object') {
+  } else if (typeof module === 'object' && module.exports) {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
@@ -819,7 +819,7 @@ WaveSurfer.WebAudio = {
             this.scriptNode = this.ac.createJavaScriptNode(this.scriptBufferSize);
         }
 
-        this.scriptNode.connect(this.ac.destination);
+        this.scriptNode.connect(this.params.destination ||  this.ac.destination);
     },
 
     addOnAudioProcess: function () {
@@ -859,7 +859,7 @@ WaveSurfer.WebAudio = {
             this.gainNode = this.ac.createGainNode();
         }
         // Add the gain node to the graph
-        this.gainNode.connect(this.ac.destination);
+        this.gainNode.connect(this.params.destination || this.ac.destination);
     },
 
     /**
